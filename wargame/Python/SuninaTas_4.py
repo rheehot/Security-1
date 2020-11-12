@@ -3,7 +3,7 @@ import requests as req
 URL = "http://suninatas.com/challenge/web04/web04_ck.asp"
 #Define Destination URL
 
-cookies = {"ASPSESSIONIDCQCAQARC":"IBAIEAKBONBABMLEAKMEAJBF", "ASP.NET_SessionId":"r0t5uuobdpqluvd4k112cs2y", "_gid":"GA1.2.156625606.1605051663", "_ga":"GA1.2.416738295.1605051663"}
+cookies = {"ASPSESSIONIDCQCAQARC":"IBAIEAKBONBABMLEAKMEAJBF", "ASP.NET_SessionId":"r0t5uuobdpqluvd4k112cs2y", "_gid":"********", "_ga":"********"}
 #Define Cookie for Login Session. The Value is Will be change when ever login
 
 headers = req.utils.default_headers()
