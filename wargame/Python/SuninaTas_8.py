@@ -3,7 +3,7 @@ import requests as req
 URL = "http://suninatas.com/challenge/web08/web08.asp"
 #Define Destination URL
 
-cookies = {"ASPSESSIONIDSSRQBBSD":"GCEHENDCLHKPBICOFCOKGPIE", "ASP.NET_SessionId":"4yapkv0m1fvilqkdhmyl0twe", "_gid":"GA1.2.156625606.1605051663", "_ga":"GA1.2.416738295.1605051663"}
+cookies = {"ASPSESSIONIDSSRQBBSD":"GCEHENDCLHKPBICOFCOKGPIE", "ASP.NET_SessionId":"4yapkv0m1fvilqkdhmyl0twe", "_gid":"********", "_ga":"********"}
 #Define Cookies for Login Session. The Value is Change whenever you login.
 
 params = {"id":"admin"}
