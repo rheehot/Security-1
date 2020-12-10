@@ -1,4 +1,0 @@
-Linux에서 useradd의 경우 새로운 유저를 생성 시 Home Directory를 같이 생성하지 않는다.
-기본적으로 user를 통해 로그인할 경우 해당 user의 home directory에서 시작이 되는데 당연하게도 useradd를 생성할 경우 home directory가 없게 된다.
-여기서 한 가지 문제점은 기본적으로 지정된 home directory가 없기 때문에 /(root)에서 시작이 되는 것이다.
-Login Script의 경우 /bin/sh로 지정되어 있으나 ./bin/bash를 통해 bash shell을 실행할 수도 있으며 이를 이용하면 무언가 권한 상승에 있어서 사용할 수 있지 않을까 싶기도 하다.
