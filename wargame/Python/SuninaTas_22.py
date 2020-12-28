@@ -2,7 +2,7 @@
 
 import requests as req
 
-cookies = {"ASP.NET_SessionId":"qrunna20jgtt2p3tprjyd4ie", "ASPSESSIONIDSADBSAQD":"NCOFJKBABPHPPPOKGCEEFANG"}
+cookies = {"ASP.NET_SessionId":"sbd2hldgbghcshskmhnubw2g", "ASPSESSIONIDSADBSAQD":"ONINCAKAHJGGDDMKBANMGNNP"}
 url = "http://suninatas.com/challenge/web22/web22.asp"
 maxpass = 15
 length = 0
