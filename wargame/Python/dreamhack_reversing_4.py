@@ -16,8 +16,8 @@ for i in range(int(len(hexStr)/2)):
         tmp1= j >> 4
         tmp2 = (j << 4) & 0xf0
         tmp = hex(tmp1 | tmp2)
-        print(tmp)
         if tmp == ansStr[i]:
+            print(tmp, ansStr[i])
             ans.append(chr(j))
 
 """
