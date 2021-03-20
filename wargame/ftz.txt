@@ -1,0 +1,8 @@
+ftz @192.168.219.81 -oKexAlgorithms=+diffie-hellman-group1-sha1 -c 3des-cbc
+
+1 : level1
+2 : hacker or cracker
+3 : can you fly?
+4 : suck my brain
+5 : what is your name?
+6 : 
