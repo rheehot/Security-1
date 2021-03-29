@@ -12,4 +12,5 @@ ftz @192.168.219.81 -oKexAlgorithms=+diffie-hellman-group1-sha1 -c 3des-cbc
 10 : interesting to hack!
 11 : what!@#$?
 12 : it is like this
-13 : 
+13 : have no clue
+14 : 
