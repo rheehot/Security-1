@@ -13,4 +13,6 @@ ftz @192.168.219.81 -oKexAlgorithms=+diffie-hellman-group1-sha1 -c 3des-cbc
 11 : what!@#$?
 12 : it is like this
 13 : have no clue
-14 : 
+14 : what that nigga want?
+15 : guess what
+16 : 
