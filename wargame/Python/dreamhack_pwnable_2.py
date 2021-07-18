@@ -3,7 +3,7 @@
 import pwn
 
 pwn.context.log_level = 'debug'
-p = pwn.remote("host1.dreamhack.games", 15299)
+p = pwn.remote("host1.dreamhack.games", 22755)
 # elf = pwn.ELF("./basic_exploitation_002") #
 
 #exit = elf.got['exit']
