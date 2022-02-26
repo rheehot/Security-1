@@ -33,7 +33,7 @@ But as you can see in Sub title that was python disassembly and looks like inter
              16 RETURN_VALUE
 ```
 
-Above code is part of disassembly result. They have **a lot of different** syntax even though structure(likes code progress) is similar to intel syntax.
+Above code is part of disassembly result. They have **a lot of different** syntax even though structure(example, code progress) is similar to intel syntax.
 
 If i knew about disassembly code of python i would interpret only related with **Key Generation** function, but i didn't know anything so try to step-by-step.
 

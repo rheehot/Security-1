@@ -14,7 +14,7 @@ Time for some more exploiting-secret-clubs'-authorization-software-to-gain-acces
 
 > [avengers2.asm](./avengers2.asm)
 
-![main](./main.PNG)
+![main](./main.png)
 
 * * *
 
